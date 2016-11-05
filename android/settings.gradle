@@ -1,0 +1,3 @@
+rootProject.name = 'ReactToe'
+
+include ':app'
