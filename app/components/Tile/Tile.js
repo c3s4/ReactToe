@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import {Text, TouchableHighlight} from 'react-native';
+import {Text, TouchableHighlight, View} from 'react-native';
 import styles from './styles';
 
 class Tile extends Component {
   static propTypes = {
       onMoveDone: PropTypes.func.isRequired,
-      player: PropTypes.number.isRequired
+      player: PropTypes.number.isRequired,
+      width: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired
   }
 
   constructor(props) {
@@ -24,14 +26,16 @@ class Tile extends Component {
     }
 
     return (
-      <Text styles={styles.prova}>{value}</Text>
+      <Text style={styles.player}>{value}</Text>
     );
   }
 
   render() {
     return (
       <TouchableHighlight onPress={this.props.onMoveDone}>
-        {this.showPlaying()}
+        <View style={[styles.container, {width: this.props.width, height: this.props.height}]}>
+          {this.showPlaying()}
+        </View>
       </TouchableHighlight>
     );
   }
