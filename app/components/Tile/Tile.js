@@ -4,30 +4,34 @@ import styles from './styles';
 
 class Tile extends Component {
   static propTypes = {
-      onMoveDone: PropTypes.func.isRequired
+      onMoveDone: PropTypes.func.isRequired,
+      player: PropTypes.number.isRequired
   }
 
   constructor(props) {
-    this.status = {};
-    this.status.played_value = Tile.PLAYED_VALUE.NONE;
+    super(props);
   }
 
-  setXvalue() {
-    if (this.status.played_value === Tile.PLAYED_VALUE.NONE) {
-      this.setStatus({played_value: Tile.PLAYED_VALUE.X});
+  showPlaying() {
+    let value = '';
+    switch (this.props.player) {
+      case Tile.PLAYED_VALUE.X:
+        value = 'X';
+        break;
+      case Tile.PLAYED_VALUE.O:
+        value = 'O';
+        break;
     }
-  }
 
-  setOvalue() {
-    if (this.status.played_value === Tile.PLAYED_VALUE.NONE) {
-      this.setStatus({played_value: Tile.PLAYED_VALUE.O});
-    }
+    return (
+      <Text styles={styles.prova}>{value}</Text>
+    );
   }
 
   render() {
     return (
-      <TouchableHighlight onPress={this.onMoveDone}>
-        <Text styles={styles.prova}>{this.status.played_value}</Text>
+      <TouchableHighlight onPress={this.props.onMoveDone}>
+        {this.showPlaying()}
       </TouchableHighlight>
     );
   }
