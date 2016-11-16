@@ -26,10 +26,15 @@ class Board extends Component {
 
     this.state = {};
     this.currentPlayer = 0;
-    this.state.board = [];
+    this.state.board = this.initGame();
+  }
+
+  initGame() {
+    const board = [];
     for (let i = 0; i < 9; i++) {
-      this.state.board[i] = Tile.PLAYED_VALUE.NONE;
+      board[i] = Tile.PLAYED_VALUE.NONE;
     }
+    return board;
   }
 
   move(index) {
@@ -79,10 +84,14 @@ class Board extends Component {
 
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.newGame === true) {
+      this.setState({board: this.initGame()});
+    }
+  }
+
   render() {
-
     let deviceWidth = Dimensions.get('window').width;
-
     return (
       <View style={styles.container}>
         {this.state.board.map((item, index) => <Tile key={index}
